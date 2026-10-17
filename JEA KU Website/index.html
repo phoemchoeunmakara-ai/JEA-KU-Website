@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/app-icon-180.png">
+    <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEA KU ជាគូ — Wedding Planning & Organization | ពិធីរៀបអាពាហ៍ពិពាហ៍ប្រណិតខ្មែរ</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Moul&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="js/tailwind-config.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="relative">
+
+    <!-- TOP ANNOUNCEMENT BAR / LANGUAGE TOGGLE -->
+    <div class="bg-sage-900 text-ivory-100 py-2 px-4 text-xs tracking-wider border-b border-gold-500/30">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span class="flex items-center space-x-1.5"><i class="fas fa-location-dot text-gold-500"></i> <span class="hidden sm:inline">Phnom Penh • Siem Reap • Worldwide</span></span>
+                <span class="hidden md:inline text-gold-500/60">|</span>
+                <span class="hidden md:inline"><i class="fas fa-phone text-gold-500 mr-1"></i> +855 (0) 12 888 999</span>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <!-- Digital Ang Pao Quick Trigger Button -->
+                <button onclick="toggleAngPaoModal()" class="text-gold-300 hover:text-white transition-colors flex items-center space-x-1 font-medium">
+                    <i class="fas fa-gift text-gold-400"></i>
+                    <span lang-key="top-angpao">Send Blessings & Ang Pao</span>
+                </button>
+                <span class="text-gold-500/60">|</span>
+                <!-- Language Switcher -->
+                <div class="flex items-center space-x-2 text-xs font-semibold">
+                    <button id="langEN" onclick="setLanguage('en')" class="text-gold-400 underline underline-offset-4">EN</button>
+                    <span class="text-gray-500">/</span>
+                    <button id="langKH" onclick="setLanguage('kh')" class="text-gray-400 hover:text-gold-400 transition-colors">ខ្មែរ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-ivory-50/95 backdrop-blur-md border-b border-gold-500/20 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <img src="images/logo.png" alt="JEA KU logo" class="w-12 h-12 rounded-full border border-gold-500 object-cover shadow-md group-hover:scale-105 transition-transform">
+                <div class="flex flex-col">
+                    <span class="font-serif-title text-xl md:text-2xl font-bold tracking-widest text-sage-800 uppercase leading-none">JEA KU <span class="font-khmer text-gold-600 normal-case tracking-normal text-lg">ជាគូ</span></span>
+                    <span class="text-[10px] tracking-widest uppercase text-gold-600 font-medium">Wedding Planning & Organization</span>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold text-sage-800">
+                <a href="#hero" class="hover:text-gold-600 transition-colors" lang-key="nav-home">Home</a>
+                <a href="#about" class="hover:text-gold-600 transition-colors" lang-key="nav-about">About Us</a>
+                <a href="#ceremonies" class="hover:text-gold-600 transition-colors" lang-key="nav-ceremonies">Ceremonies</a>
+                <a href="#portfolio" class="hover:text-gold-600 transition-colors" lang-key="nav-portfolio">Portfolio</a>
+                <a href="#blessings" class="hover:text-gold-600 transition-colors" lang-key="nav-blessings">Blessing Wall</a>
+                <a href="#contact" class="hover:text-gold-600 transition-colors" lang-key="nav-contact">Contact</a>
+            </nav>
+
+            <!-- CTA Header Button -->
+            <div class="hidden sm:flex items-center">
+                <a href="#contact" class="px-6 py-2.5 bg-sage-800 text-ivory-50 text-xs tracking-widest uppercase font-semibold border border-gold-500/50 hover:bg-gold-500 hover:text-sage-900 transition-all duration-300 shadow-md rounded-none" lang-key="btn-inquire">
+                    INQUIRE NOW
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-sage-800 p-2 text-xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileDrawer" class="hidden lg:hidden bg-ivory-50 border-b border-gold-500/30 px-6 py-6 space-y-4 text-xs tracking-widest uppercase font-semibold">
+            <a href="#hero" onclick="toggleMobileMenu()" class="block text-sage-800 hover:text-gold-600 border-b border-ivory-200 pb-2" lang-key="nav-home">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-sage-800 hover:text-gold-600 border-b border-ivory-200 pb-2" lang-key="nav-about">About Us</a>
+            <a href="#ceremonies" onclick="toggleMobileMenu()" class="block text-sage-800 hover:text-gold-600 border-b border-ivory-200 pb-2" lang-key="nav-ceremonies">Ceremonies</a>
+            <a href="#portfolio" onclick="toggleMobileMenu()" class="block text-sage-800 hover:text-gold-600 border-b border-ivory-200 pb-2" lang-key="nav-portfolio">Portfolio</a>
+            <a href="#blessings" onclick="toggleMobileMenu()" class="block text-sage-800 hover:text-gold-600 border-b border-ivory-200 pb-2" lang-key="nav-blessings">Blessing Wall</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-sage-800 hover:text-gold-600 pb-2" lang-key="nav-contact">Contact</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-center py-3 bg-sage-800 text-ivory-50 border border-gold-500 mt-4" lang-key="btn-inquire">INQUIRE NOW</a>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HERO BANNER -->
+    <section id="hero" class="relative min-h-[88vh] flex items-center justify-center bg-sage-900 overflow-hidden">
+        <!-- Background Hero Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1920" alt="Khmer Royal Wedding Couple" class="w-full h-full object-cover object-center scale-105 animate-pulse duration-[10000ms]">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <!-- Hero Content Block -->
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 py-20 text-ivory-50">
+            
+            <div class="inline-flex items-center space-x-2 bg-sage-900/60 border border-gold-500/40 backdrop-blur-md px-4 py-1.5 rounded-full text-xs tracking-widest text-gold-300 uppercase mb-6">
+                <i class="fas fa-crown text-[10px]"></i>
+                <span lang-key="hero-badge">Luxurious Cambodian Wedding Design & Planning</span>
+            </div>
+
+            <h1 class="font-serif-title text-4xl sm:text-6xl md:text-7xl font-normal leading-tight tracking-wide mb-6">
+                <span lang-key="hero-title-1">Your Dream Khmer Wedding,</span><br>
+                <span class="italic text-gold-300 font-light" lang-key="hero-title-2">Perfectly Honored</span>
+            </h1>
+
+            <div class="kbach-divider max-w-xs mx-auto">
+                <span class="text-gold-400 text-sm">❀</span>
+            </div>
+
+            <p class="text-sm md:text-base text-ivory-100/90 font-light max-w-2xl mx-auto leading-relaxed mb-10 tracking-wide" lang-key="hero-sub">
+                Preserving centuries-old Cambodian royal traditions with modern luxury, exquisite silk craftsmanship, and seamless event execution.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#ceremonies" class="w-full sm:w-auto px-8 py-3.5 bg-gold-500 text-sage-900 text-xs tracking-widest uppercase font-bold hover:bg-gold-400 transition-all duration-300 shadow-xl border border-gold-300" lang-key="btn-explore">
+                    EXPLORE CEREMONIES
+                </a>
+                <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 bg-transparent border border-ivory-50/60 text-ivory-50 text-xs tracking-widest uppercase font-medium hover:bg-ivory-50 hover:text-sage-900 transition-all duration-300" lang-key="btn-plan">
+                    LET'S PLAN YOUR DAY
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Subtle Bottom Scroll Indicator -->
+        <a href="#about" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-gold-300 hover:text-white transition-colors animate-bounce z-10 text-sm">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- SECTION 2: INTRO & PHILOSOPHY (WE PLAN. YOU CELEBRATE.) -->
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 bg-ivory-50 relative">
+        <div class="max-w-5xl mx-auto text-center">
+            
+            <p class="text-xs uppercase tracking-widest text-gold-600 font-semibold mb-2" lang-key="about-subtitle">WE PLAN. YOU CELEBRATE.</p>
+            <h2 class="font-serif-title text-3xl sm:text-5xl text-sage-800 font-normal mb-4" lang-key="about-title">Honoring Tradition with Unrivaled Elegance</h2>
+            
+            <div class="kbach-divider max-w-sm mx-auto">
+                <span class="text-gold-500">✦</span>
+            </div>
+
+            <p class="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed font-light mb-16" lang-key="about-desc">
+                From intimate family rituals to grand hall celebrations, we craft timeless Cambodian weddings that reflect your love story while upholding sacred rituals like Hai Chenh Chnoon, Gaat Sah, and Sombah Phtim.
+            </p>
+
+            <!-- 4 Pillars / Features Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Feature 1 -->
+                <div class="p-8 bg-white border border-ivory-200 shadow-sm card-hover-effect text-center group">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-ivory-100 border border-gold-300/50 flex items-center justify-center text-gold-600 group-hover:bg-sage-800 group-hover:text-gold-300 transition-colors">
+                        <i class="fas fa-heart text-xl"></i>
+                    </div>
+                    <h3 class="font-serif-title text-xl text-sage-800 mb-2 font-bold" lang-key="f1-title">PERSONALIZED EXPERIENCE</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed font-light" lang-key="f1-desc">
+                        Every detail tailored to your family's heritage, vision, and custom aesthetic preferences.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="p-8 bg-white border border-ivory-200 shadow-sm card-hover-effect text-center group">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-ivory-100 border border-gold-300/50 flex items-center justify-center text-gold-600 group-hover:bg-sage-800 group-hover:text-gold-300 transition-colors">
+                        <i class="fas fa-gem text-xl"></i>
+                    </div>
+                    <h3 class="font-serif-title text-xl text-sage-800 mb-2 font-bold" lang-key="f2-title">AUTHENTIC RITUALS</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed font-light" lang-key="f2-desc">
+                        Flawless traditional setup with master officiating, floral mandalas, and royal silk ensembles.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="p-8 bg-white border border-ivory-200 shadow-sm card-hover-effect text-center group">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-ivory-100 border border-gold-300/50 flex items-center justify-center text-gold-600 group-hover:bg-sage-800 group-hover:text-gold-300 transition-colors">
+                        <i class="fas fa-ring text-xl"></i>
+                    </div>
+                    <h3 class="font-serif-title text-xl text-sage-800 mb-2 font-bold" lang-key="f3-title">FLAWLESS EXECUTION</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed font-light" lang-key="f3-desc">
+                        Seamless coordination, strict timeline management, and top-tier hospitality for your honored guests.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="p-8 bg-white border border-ivory-200 shadow-sm card-hover-effect text-center group">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-ivory-100 border border-gold-300/50 flex items-center justify-center text-gold-600 group-hover:bg-sage-800 group-hover:text-gold-300 transition-colors">
+                        <i class="fas fa-champagne-glasses text-xl"></i>
+                    </div>
+                    <h3 class="font-serif-title text-xl text-sage-800 mb-2 font-bold" lang-key="f4-title">MEMORABLE MOMENTS</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed font-light" lang-key="f4-desc">
+                        Creating unforgettable memories and breathtaking visual grandeur that last a lifetime.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3: CAMBODIAN WEDDING CEREMONIES SHOWCASE -->
+    <section id="ceremonies" class="py-24 bg-white border-t border-b border-ivory-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <p class="text-xs uppercase tracking-widest text-gold-600 font-semibold mb-2" lang-key="ceremony-subtitle">TRADITIONAL RITUALS & SERVICES</p>
+                <h2 class="font-serif-title text-3xl sm:text-5xl text-sage-800 font-normal" lang-key="ceremony-title">Sacred Cambodian Ceremonies</h2>
+                <div class="kbach-divider max-w-xs mx-auto">
+                    <span class="text-gold-500">❀</span>
+                </div>
+            </div>
+
+            <!-- 3 Columns Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Service 1 -->
+                <div class="relative group overflow-hidden bg-sage-900 h-[480px] shadow-lg card-hover-effect">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800" alt="Hai Chenh Chnoon Procession" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80">
+                    <div class="absolute inset-0 dark-card-overlay p-8 flex flex-col justify-end text-ivory-50">
+                        <div class="w-10 h-10 rounded-full border border-gold-400/80 flex items-center justify-center text-gold-300 mb-4 bg-sage-900/60">
+                            <i class="fas fa-apple-whole text-sm"></i>
+                        </div>
+                        <span class="text-gold-400 text-xs tracking-widest uppercase font-semibold mb-1" lang-key="c1-tag">MORNING PROCESSION</span>
+                        <h3 class="font-serif-title text-2xl text-white mb-2" lang-key="c1-title">ពិធីហែជំនូន (Hai Chenh Chnoon)</h3>
+                        <p class="text-xs text-ivory-100/80 leading-relaxed font-light mb-6" lang-key="c1-desc">
+                            The groom's vibrant procession bearing trays of fruits, traditional gifts, and sacred offerings to the bride's family home.
+                        </p>
+                        <button onclick="openCeremonyModal('c1')" class="inline-flex items-center space-x-2 text-xs tracking-widest uppercase text-gold-300 font-semibold hover:text-white transition-colors">
+                            <span lang-key="btn-learn">LEARN MORE</span>
+                            <i class="fas fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="relative group overflow-hidden bg-sage-900 h-[480px] shadow-lg card-hover-effect">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800" alt="Gaat Sah Hair Cutting" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80">
+                    <div class="absolute inset-0 dark-card-overlay p-8 flex flex-col justify-end text-ivory-50">
+                        <div class="w-10 h-10 rounded-full border border-gold-400/80 flex items-center justify-center text-gold-300 mb-4 bg-sage-900/60">
+                            <i class="fas fa-scissors text-sm"></i>
+                        </div>
+                        <span class="text-gold-400 text-xs tracking-widest uppercase font-semibold mb-1" lang-key="c2-tag">CLEANSING RITUAL</span>
+                        <h3 class="font-serif-title text-2xl text-white mb-2" lang-key="c2-title">ពិធីកាត់សក់ (Gaat Sah)</h3>
+                        <p class="text-xs text-ivory-100/80 leading-relaxed font-light mb-6" lang-key="c2-desc">
+                            Symbolic hair-cutting and perfume blessing by elders to cleanse past burdens and welcome new marital happiness.
+                        </p>
+                        <button onclick="openCeremonyModal('c2')" class="inline-flex items-center space-x-2 text-xs tracking-widest uppercase text-gold-300 font-semibold hover:text-white transition-colors">
+                            <span lang-key="btn-learn">LEARN MORE</span>
+                            <i class="fas fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="relative group overflow-hidden bg-sage-900 h-[480px] shadow-lg card-hover-effect">
+                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=800" alt="Sombah Phtim Knot Tying" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80">
+                    <div class="absolute inset-0 dark-card-overlay p-8 flex flex-col justify-end text-ivory-50">
+                        <div class="w-10 h-10 rounded-full border border-gold-400/80 flex items-center justify-center text-gold-300 mb-4 bg-sage-900/60">
+                            <i class="fas fa-ribbon text-sm"></i>
+                        </div>
+                        <span class="text-gold-400 text-xs tracking-widest uppercase font-semibold mb-1" lang-key="c3-tag">PAIRING & KNOT TYING</span>
+                        <h3 class="font-serif-title text-2xl text-white mb-2" lang-key="c3-title">ពិធីសំពះផ្ទឹម & ចងដៃ (Phtim)</h3>
+                        <p class="text-xs text-ivory-100/80 leading-relaxed font-light mb-6" lang-key="c3-desc">
+                            Tying red threads around the couple's wrists accompanied by sword blessings, flower showers, and traditional songs.
+                        </p>
+                        <button onclick="openCeremonyModal('c3')" class="inline-flex items-center space-x-2 text-xs tracking-widest uppercase text-gold-300 font-semibold hover:text-white transition-colors">
+                            <span lang-key="btn-learn">LEARN MORE</span>
+                            <i class="fas fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: FEATURED PORTFOLIO / GALLERY -->
+    <section id="portfolio" class="py-24 bg-ivory-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-gold-600 font-semibold mb-2" lang-key="port-subtitle">REAL CELEBRATIONS</p>
+                    <h2 class="font-serif-title text-3xl sm:text-5xl text-sage-800 font-normal" lang-key="port-title">Timeless Stories, Beautifully Told</h2>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0 text-xs font-semibold tracking-wider uppercase">
+                    <button onclick="filterPortfolio('all')" class="port-tab active-tab px-4 py-2 border border-gold-500 bg-sage-800 text-gold-300">All</button>
+                    <button onclick="filterPortfolio('rituals')" class="port-tab px-4 py-2 border border-ivory-300 bg-white text-sage-800 hover:border-gold-500">Rituals</button>
+                    <button onclick="filterPortfolio('luxury')" class="port-tab px-4 py-2 border border-ivory-300 bg-white text-sage-800 hover:border-gold-500">Luxury Receptions</button>
+                    <button onclick="filterPortfolio('silk')" class="port-tab px-4 py-2 border border-ivory-300 bg-white text-sage-800 hover:border-gold-500">Silk & Attire</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div id="portfolioGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Item 1 -->
+                <div class="port-item rituals group relative overflow-hidden bg-sage-900 rounded-none shadow-md cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1200', 'Sothea & Bopha - Royal Silk Wedding')">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=800" alt="Khmer Couple Traditional Silk" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-sage-900/60 opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-ivory-50">
+                        <span class="text-gold-300 text-[10px] tracking-widest uppercase font-semibold">Phnom Penh</span>
+                        <h4 class="font-serif-title text-xl text-white font-bold">Sothea & Bopha</h4>
+                        <p class="text-xs text-ivory-200 font-light">Royal Silk Traditional Wedding</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="port-item luxury group relative overflow-hidden bg-sage-900 rounded-none shadow-md cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200', 'Vissal & Devi - Grand Ballroom Celebration')">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800" alt="Grand Ballroom Reception" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-sage-900/60 opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-ivory-50">
+                        <span class="text-gold-300 text-[10px] tracking-widest uppercase font-semibold">Siem Reap</span>
+                        <h4 class="font-serif-title text-xl text-white font-bold">Vissal & Devi</h4>
+                        <p class="text-xs text-ivory-200 font-light">Angkor Grand Ballroom Reception</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="port-item silk group relative overflow-hidden bg-sage-900 rounded-none shadow-md cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=1200', 'Dara & Leakhena - Sampot Hol Silk Couture')">
+                    <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&q=80&w=800" alt="Sampot Hol Silk Details" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-sage-900/60 opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-ivory-50">
+                        <span class="text-gold-300 text-[10px] tracking-widest uppercase font-semibold">Custom Attire</span>
+                        <h4 class="font-serif-title text-xl text-white font-bold">Dara & Leakhena</h4>
+                        <p class="text-xs text-ivory-200 font-light">Handwoven Sampot Hol & Gold Jewelry</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="port-item rituals group relative overflow-hidden bg-sage-900 rounded-none shadow-md cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=1200', 'Chan & Sophea - Morning Hair Cutting Ritual')">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800" alt="Morning Hair Cutting Ritual" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-sage-900/60 opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-ivory-50">
+                        <span class="text-gold-300 text-[10px] tracking-widest uppercase font-semibold">Battambang</span>
+                        <h4 class="font-serif-title text-xl text-white font-bold">Chan & Sophea</h4>
+                        <p class="text-xs text-ivory-200 font-light">Traditional Morning Rituals</p>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="port-item luxury group relative overflow-hidden bg-sage-900 rounded-none shadow-md cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=1200', 'Rithy & Chanthea - Floral Canopy Gala')">
+                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=800" alt="Floral Canopy Banquet" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-sage-900/60 opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-ivory-50">
+                        <span class="text-gold-300 text-[10px] tracking-widest uppercase font-semibold">Koh Pich, Phnom Penh</span>
+                        <h4 class="font-serif-title text-xl text-white font-bold">Rithy & Chanthea</h4>
+                        <p class="text-xs text-ivory-200 font-light">Lotus Floral Canopy Banquet</p>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="port-item silk group relative overflow-hidden bg-sage-900 rounded-none shadow-md cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80&w=1200', 'Khemra & Neary - Pre-wedding Editorial')">
+                    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80&w=800" alt="Editorial Prewedding" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-sage-900/60 opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end text-ivory-50">
+                        <span class="text-gold-300 text-[10px] tracking-widest uppercase font-semibold">Temple Editorial</span>
+                        <h4 class="font-serif-title text-xl text-white font-bold">Khemra & Neary</h4>
+                        <p class="text-xs text-ivory-200 font-light">Angkor Wat Heritage Pre-Wedding</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 5: BLESSING WALL & KIND WORDS (TESTIMONIALS) -->
+    <section id="blessings" class="py-24 bg-white border-t border-b border-ivory-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-center mb-16">
+                <p class="text-xs uppercase tracking-widest text-gold-600 font-semibold mb-2" lang-key="bless-subtitle">KIND WORDS & BLESSINGS</p>
+                <h2 class="font-serif-title text-3xl sm:text-5xl text-sage-800 font-normal" lang-key="bless-title">Love Notes & Wishes</h2>
+                <div class="kbach-divider max-w-xs mx-auto">
+                    <span class="text-gold-500">❀</span>
+                </div>
+            </div>
+
+            <!-- Testimonials Carousel Frame -->
+            <div class="bg-ivory-50 border border-gold-400/40 p-8 sm:p-12 relative shadow-sm mb-16">
+                <div class="text-center max-w-2xl mx-auto">
+                    <i class="fas fa-quote-left text-3xl text-gold-500/40 mb-6 block"></i>
+                    
+                    <div id="testimonialContainer">
+                        <p id="testimonialText" class="font-serif-title text-xl sm:text-2xl text-sage-800 italic leading-relaxed mb-6">
+                            "JEA KU made our Cambodian wedding an absolute dream. Their attention to traditional ritual details and seamless banquet coordination exceeded everything we envisioned. Our families were deeply moved!"
+                        </p>
+                        <p id="testimonialAuthor" class="text-xs uppercase tracking-widest text-gold-600 font-bold">
+                            — SOUPHEA & CHEA (PHNOM PENH)
+                        </p>
+                    </div>
+
+                    <!-- Slide Controls -->
+                    <div class="flex justify-center space-x-3 mt-8">
+                        <button onclick="prevTestimonial()" class="w-8 h-8 rounded-full border border-gold-500 text-gold-600 hover:bg-sage-800 hover:text-white transition-colors flex items-center justify-center text-xs">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button onclick="nextTestimonial()" class="w-8 h-8 rounded-full border border-gold-500 text-gold-600 hover:bg-sage-800 hover:text-white transition-colors flex items-center justify-center text-xs">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guest Blessing Wall Board -->
+            <div class="bg-sage-900 text-ivory-50 p-8 sm:p-10 border border-gold-500/50 shadow-xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-sage-700 pb-6 mb-6">
+                    <div>
+                        <h3 class="font-serif-title text-2xl text-gold-300" lang-key="wall-title">ពរជ័យមង្គល - Public Blessing Wall</h3>
+                        <p class="text-xs text-ivory-200 font-light mt-1" lang-key="wall-desc">Leave your warm wedding wishes for our upcoming newlyweds</p>
+                    </div>
+                    <button onclick="toggleBlessingInput()" class="mt-4 sm:mt-0 px-5 py-2 bg-gold-500 text-sage-900 text-xs tracking-widest uppercase font-bold hover:bg-gold-400 transition-colors">
+                        + LEAVE A BLESSING
+                    </button>
+                </div>
+
+                <!-- Input Drawer -->
+                <div id="blessingDrawer" class="hidden mb-6 p-4 bg-sage-800 border border-gold-500/30">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                        <input type="text" id="blessingName" placeholder="Your Name / ឈ្មោះរបស់អ្នក" class="px-3 py-2 bg-sage-900 border border-sage-700 text-xs text-white focus:outline-none focus:border-gold-500">
+                        <input type="text" id="blessingCouple" placeholder="To Couple (e.g., Sokha & Muny)" class="px-3 py-2 bg-sage-900 border border-sage-700 text-xs text-white focus:outline-none focus:border-gold-500">
+                    </div>
+                    <textarea id="blessingText" rows="2" placeholder="Write your heartfelt blessing (ពាក្យជូនពរ)..." class="w-full px-3 py-2 bg-sage-900 border border-sage-700 text-xs text-white focus:outline-none focus:border-gold-500 mb-3"></textarea>
+                    <button onclick="postBlessing()" class="px-6 py-2 bg-gold-500 text-sage-900 text-xs uppercase font-bold hover:bg-gold-400">SUBMIT BLESSING</button>
+                </div>
+
+                <!-- Live Wishes Feed -->
+                <div id="blessingFeed" class="space-y-4 max-h-64 overflow-y-auto pr-2">
+                    <div class="p-4 bg-sage-800/80 border border-gold-500/20">
+                        <div class="flex justify-between text-xs text-gold-400 mb-1">
+                            <span class="font-bold">Lok Oknha Chan & Family</span>
+                            <span class="text-[10px] text-gray-400">10 mins ago</span>
+                        </div>
+                        <p class="text-xs text-ivory-100 font-light">
+                            សូមជូនពរឱ្យគូស្វាមីភរិយាថ្មី មានសុភមង្គល ស្រឡាញ់គ្នាលុះក្ស័យ និងជោគជ័យគ្រប់ភារកិច្ច! 🌸✨
+                        </p>
+                    </div>
+
+                    <div class="p-4 bg-sage-800/80 border border-gold-500/20">
+                        <div class="flex justify-between text-xs text-gold-400 mb-1">
+                            <span class="font-bold">Emily & Mark (Australia)</span>
+                            <span class="text-[10px] text-gray-400">1 hour ago</span>
+                        </div>
+                        <p class="text-xs text-ivory-100 font-light">
+                            Wishing you both a lifetime of eternal love, happiness, and prosperity in your beautiful Khmer union!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 6: INQUIRY & CONTACT FORM (LET'S START PLANNING) -->
+    <section id="contact" class="py-24 bg-ivory-50 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Form Content Column -->
+                <div class="lg:col-span-6">
+                    <p class="text-xs uppercase tracking-widest text-gold-600 font-semibold mb-2" lang-key="contact-subtitle">LET'S START PLANNING</p>
+                    <h2 class="font-serif-title text-3xl sm:text-5xl text-sage-800 font-normal mb-4" lang-key="contact-title">Your Forever Begins Here</h2>
+                    <p class="text-sm text-gray-600 font-light leading-relaxed mb-8" lang-key="contact-desc">
+                        We would love to hear your story and help you create an authentic Cambodian wedding celebration tailored to your highest expectations.
+                    </p>
+
+                    <form onsubmit="handleInquirySubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-sage-800 font-semibold mb-1">Full Name / ឈ្មោះពេញ *</label>
+                            <input type="text" required placeholder="e.g. Lim Sokha / Sokha Lim" class="w-full px-4 py-3 bg-white border border-ivory-300 text-xs text-sage-800 focus:outline-none focus:border-gold-500">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-sage-800 font-semibold mb-1">Email Address *</label>
+                                <input type="email" required placeholder="name@domain.com" class="w-full px-4 py-3 bg-white border border-ivory-300 text-xs text-sage-800 focus:outline-none focus:border-gold-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-sage-800 font-semibold mb-1">Phone / Telegram *</label>
+                                <input type="tel" required placeholder="+855 12 345 678" class="w-full px-4 py-3 bg-white border border-ivory-300 text-xs text-sage-800 focus:outline-none focus:border-gold-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-sage-800 font-semibold mb-1">Event Location</label>
+                                <select class="w-full px-4 py-3 bg-white border border-ivory-300 text-xs text-sage-800 focus:outline-none focus:border-gold-500">
+                                    <option>Phnom Penh</option>
+                                    <option>Siem Reap</option>
+                                    <option>Battambang</option>
+                                    <option>Sihanoukville</option>
+                                    <option>International Destination</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-sage-800 font-semibold mb-1">Estimated Guests</label>
+                                <select class="w-full px-4 py-3 bg-white border border-ivory-300 text-xs text-sage-800 focus:outline-none focus:border-gold-500">
+                                    <option>100 - 300 Guests</option>
+                                    <option>300 - 600 Guests</option>
+                                    <option>600 - 1,000+ Guests</option>
+                                    <option>Intimate Gathering (<100)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-sage-800 font-semibold mb-1">Your Vision & Preferred Dates</label>
+                            <textarea rows="4" placeholder="Tell us about your ceremony requirements, silk preferences, or preferred wedding date..." class="w-full px-4 py-3 bg-white border border-ivory-300 text-xs text-sage-800 focus:outline-none focus:border-gold-500"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 bg-sage-800 text-ivory-50 text-xs tracking-widest uppercase font-bold border border-gold-500 hover:bg-gold-500 hover:text-sage-900 transition-all duration-300 shadow-md">
+                            SEND INQUIRY / ផ្ញើសំណើ
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Imagery & Contact Info Column -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1000" alt="Cambodian Wedding Planning" class="w-full h-[550px] object-cover">
+                        <div class="absolute inset-0 bg-sage-900/40"></div>
+                        
+                        <!-- Floating Glass Contact Card -->
+                        <div class="absolute bottom-6 left-6 right-6 p-6 bg-sage-900/90 backdrop-blur-md text-ivory-50 border border-gold-500/40">
+                            <h4 class="font-serif-title text-xl text-gold-300 mb-2">JEA KU Studio</h4>
+                            <p class="text-xs font-light text-ivory-200 mb-4">#124 Norodom Boulevard, Sangkat Tonle Bassac, Phnom Penh, Cambodia</p>
+                            <div class="space-y-2 text-xs">
+                                <p><i class="fas fa-envelope text-gold-400 mr-2"></i> hello@jeaku.com</p>
+                                <p><i class="fas fa-phone text-gold-400 mr-2"></i> +855 (0) 12 888 999 / +855 (0) 97 777 666</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-sage-900 text-ivory-100 py-16 border-t-2 border-gold-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                
+                <!-- Col 1: Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="images/logo.png" alt="JEA KU logo" class="w-10 h-10 rounded-full border border-gold-400 object-cover">
+                        <span class="font-serif-title text-lg font-bold text-white tracking-widest">JEA KU ជាគូ</span>
+                    </div>
+                    <p class="text-xs text-ivory-200/80 font-light leading-relaxed mb-4">
+                        Luxury Cambodian wedding planning and design for couples who value elegance, authentic heritage, and unforgettable moments.
+                    </p>
+                    <div class="flex space-x-4 text-gold-400 text-sm">
+                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation -->
+                <div>
+                    <h4 class="font-serif-title text-gold-300 text-base mb-4 uppercase tracking-wider">EXPLORE</h4>
+                    <ul class="space-y-2 text-xs font-light text-ivory-200/80">
+                        <li><a href="#hero" class="hover:text-gold-400 transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-gold-400 transition-colors">About Us</a></li>
+                        <li><a href="#ceremonies" class="hover:text-gold-400 transition-colors">Traditional Ceremonies</a></li>
+                        <li><a href="#portfolio" class="hover:text-gold-400 transition-colors">Real Weddings Portfolio</a></li>
+                        <li><a href="#blessings" class="hover:text-gold-400 transition-colors">Blessing Wall</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Ceremonies -->
+                <div>
+                    <h4 class="font-serif-title text-gold-300 text-base mb-4 uppercase tracking-wider">SERVICES</h4>
+                    <ul class="space-y-2 text-xs font-light text-ivory-200/80">
+                        <li><a href="#ceremonies" class="hover:text-gold-400 transition-colors">Full Wedding Design & Management</a></li>
+                        <li><a href="#ceremonies" class="hover:text-gold-400 transition-colors">Hai Chenh Chnoon Ritual Setup</a></li>
+                        <li><a href="#ceremonies" class="hover:text-gold-400 transition-colors">Traditional Silk & Jewelry Styling</a></li>
+                        <li><a href="#ceremonies" class="hover:text-gold-400 transition-colors">Apsara Dance & Music Performance</a></li>
+                        <li><a href="#ceremonies" class="hover:text-gold-400 transition-colors">Destination Wedding Planning</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Legal & Location -->
+                <div>
+                    <h4 class="font-serif-title text-gold-300 text-base mb-4 uppercase tracking-wider">OFFICE</h4>
+                    <p class="text-xs text-ivory-200/80 font-light leading-relaxed mb-2">
+                        #124 Norodom Boulevard, Sangkat Tonle Bassac, Phnom Penh, Kingdom of Cambodia
+                    </p>
+                    <p class="text-xs text-gold-400">Open Daily: 8:00 AM - 6:00 PM</p>
+                </div>
+
+            </div>
+
+            <div class="border-t border-sage-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-[11px] text-ivory-200/60 font-light">
+                <p>© 2026 JEA KU ជាគូ — Wedding Planning & Organization. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-gold-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-gold-400 transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODAL 1: DIGITAL ANG PAO / QR ENVELOPE MODAL -->
+    <div id="angPaoModal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-4">
+        <div class="bg-white max-w-md w-full border-2 border-gold-500 p-6 sm:p-8 relative text-center shadow-2xl">
+            <button onclick="toggleAngPaoModal()" class="absolute top-4 right-4 text-gray-400 hover:text-sage-800 text-lg">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="w-16 h-16 rounded-full bg-crimson-800 text-gold-300 flex items-center justify-center text-2xl mx-auto mb-4 border border-gold-400">
+                <i class="fas fa-envelope-open-text"></i>
+            </div>
+
+            <h3 class="font-serif-title text-2xl text-sage-800 font-bold mb-1">ចំណងដៃ & អាំងប៉ាវឌីជីថល</h3>
+            <p class="text-xs text-gold-600 font-semibold mb-4">Digital Ang Pao & Blessing Gift</p>
+            <p class="text-xs text-gray-500 leading-relaxed mb-6">
+                Send your warm wishes and digital wedding gift directly via ABA or Wing Bank KHQR.
+            </p>
+
+            <!-- QR Switcher -->
+            <div class="flex border border-gold-300 p-1 mb-6 bg-ivory-50">
+                <button id="btnABA" onclick="switchQR('aba')" class="flex-1 py-1.5 text-xs font-bold bg-sage-800 text-gold-300">ABA Mobile</button>
+                <button id="btnWing" onclick="switchQR('wing')" class="flex-1 py-1.5 text-xs font-bold text-sage-800">Wing Bank</button>
+            </div>
+
+            <!-- QR Code Display -->
+            <div id="abaQRBlock" class="p-4 border border-dashed border-gold-400 bg-ivory-50 mb-6">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ABA_BANK_000123456_JEA_KU" alt="ABA QR Code" class="w-44 h-44 mx-auto border border-ivory-300 mb-2">
+                <p class="font-bold text-xs text-sage-800">000 123 456 (ABA KHQR)</p>
+                <p class="text-[10px] text-gray-500">JEA KU WEDDING BLESSING</p>
+            </div>
+
+            <div id="wingQRBlock" class="hidden p-4 border border-dashed border-gold-400 bg-ivory-50 mb-6">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=WING_BANK_987654321_JEA_KU" alt="Wing QR Code" class="w-44 h-44 mx-auto border border-ivory-300 mb-2">
+                <p class="font-bold text-xs text-sage-800">987 654 321 (Wing KHQR)</p>
+                <p class="text-[10px] text-gray-500">JEA KU WEDDING BLESSING</p>
+            </div>
+
+            <button onclick="toggleAngPaoModal()" class="w-full py-2.5 bg-sage-800 text-gold-300 text-xs font-bold uppercase tracking-wider border border-gold-400">
+                CLOSE WINDOW
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 2: CEREMONY DETAIL MODAL -->
+    <div id="ceremonyModal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-4">
+        <div class="bg-white max-w-2xl w-full border border-gold-500 p-6 sm:p-8 relative shadow-2xl">
+            <button onclick="closeCeremonyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-sage-800 text-lg">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <span id="cModalTag" class="text-gold-600 text-xs font-bold tracking-widest uppercase block mb-1">RITUAL DETAILS</span>
+            <h3 id="cModalTitle" class="font-serif-title text-3xl text-sage-800 font-bold mb-4">ពិធីការ</h3>
+            
+            <div class="kbach-divider max-w-xs mb-6">
+                <span class="text-gold-500">❀</span>
+            </div>
+
+            <p id="cModalDesc" class="text-sm text-gray-600 leading-relaxed font-light mb-6">
+                Detailed description of the traditional ceremony...
+            </p>
+
+            <button onclick="closeCeremonyModal()" class="px-6 py-2.5 bg-sage-800 text-ivory-50 text-xs tracking-widest uppercase font-bold border border-gold-500 hover:bg-gold-500 hover:text-sage-900 transition-colors">
+                CLOSE
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 3: PORTFOLIO IMAGE LIGHTBOX -->
+    <div id="imageModal" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4" onclick="closeImageModal()">
+        <div class="max-w-4xl text-center" onclick="event.stopPropagation()">
+            <img id="lightboxImg" src="" alt="Portfolio Image Preview" class="max-h-[80vh] mx-auto border-2 border-gold-500 shadow-2xl mb-4">
+            <p id="lightboxCaption" class="text-gold-300 font-serif-title text-xl"></p>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script src="js/main.js"></script>
+</body>
+</html>
